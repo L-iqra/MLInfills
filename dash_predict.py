@@ -55,12 +55,15 @@ def predict(NOSt = widgets.BoundedIntText(value = 22, min = 1, max = 22.0, step 
             if Model == 'NN':
                 mdl = pickle.load(open('./models/nn_best_model.pkl','rb'))
                 tpred = mdl.predict(pd.DataFrame(pred_dict)).round(4)
-                print(f'\n \n Predicted fundamental period using {Model}: ',tpred[0], 's')  
+                opmessage = f'<b><br>Predicted fundamental period using <i>{Model}: {tpred[0]} s</i></b>'
+                printmd(opmessage) 
             elif Model == 'XGBoost':
         
                 mdl = pickle.load(open('./models/xgb_best_model.pkl','rb'))
-                tpred = mdl.predict(pd.DataFrame(pred_dict)).round(4)
-                print(f'\n \n Predicted fundamental period using {Model}: ',tpred[0], 's')
+                tpred = np.array(mdl.predict(pd.DataFrame(pred_dict)).round(4)).round(4).item()
+                tpred = round(tpred, 4)
+                opmessage = f'<b><br>Predicted fundamental period using <i>{Model}: {tpred} s</i></b>'
+                printmd(opmessage)
             elif Model == 'Eq. (9)':
                 df = pd.DataFrame(pred_dict)
                 OR = df.OR
@@ -68,7 +71,9 @@ def predict(NOSt = widgets.BoundedIntText(value = 22, min = 1, max = 22.0, step 
                 N  = df.NOSt
                 WS = df.K
                 tpred = (0.067+0.16*OR - 0.159*OR**2 + 0.002*SL**1.71)*(N**(0.95-0.004*OR+0.12*OR**2)/WS**(0.39-0.50*OR+0.110*OR**2))
-                print(f'\n \n Predicted fundamental period using {Model}: ',round(tpred,4).values.item(), 's')
+                opmessage = f'<b><br>Predicted fundamental period using <i>{Model}: {round(tpred,4).values.item()} s</i></b>'
+                printmd(opmessage)
+                
     button = widgets.Button(description="Get prediction",button_style = 'success',tooltip = 'Description', icon = 'compact-disc',style=dict(font_weight='bold'))
     
     output = widgets.Output()
