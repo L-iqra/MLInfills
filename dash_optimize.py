@@ -24,7 +24,7 @@ filterwarnings("ignore")
 from dash_utils import *
 
 printmd('<h2>Welcome to Optimization dashboard!</h2>')
-printmd('<h3>Follow these steps to optimize the opening ratio (OR) and stiffness (K) of masonary infilled RC frame.</h3>')
+printmd('<h3>Follow these steps to optimize the opening ratio (OR) and stiffness (K) of masonry infilled RC frame.</h3>')
 printmd('<b>Step 1:</b> Enter the values of all the input features.')
 printmd("<b>Step 2:</b> Provide the desired range of OR and K.")
 printmd("<b>Step 3:</b> Provide the fundamental period to be targetted.")
