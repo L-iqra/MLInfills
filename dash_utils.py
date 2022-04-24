@@ -1,17 +1,21 @@
-import matplotlib.pyplot as plt
+from warnings import filterwarnings
+from IPython.display import Markdown, display
+import pickle
 
+import matplotlib.pyplot as plt
 import numpy as np
 import os
 import pandas as pd
-import pickle
 from xgboost import XGBRegressor
-from warnings import filterwarnings
+
 filterwarnings("ignore")
 
 np.set_printoptions(precision=4)
 
-np.set_printoptions(precision=10)
-
+def printmd(string, color=None):
+    colorstr = "<span style='color:{}'>{}</span>".format(color, string)
+    display(Markdown(colorstr))
+    
 def load_model(config):
     
     if config['model'] == 'XGBoost':
