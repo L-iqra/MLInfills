@@ -17,7 +17,7 @@ from dash_utils import *
 np.set_printoptions(precision=10)
 
 printmd('<h2>Welcome to fundamental period prediction dashboard!</h2>')
-printmd('<h3>Follow these steps to predict the fundamental period of masonary infilled RC frame.</h3>')
+printmd('<h3>Follow these steps to predict the fundamental period of masonry infilled RC frame.</h3>')
 printmd('<b>Step 1:</b> Enter the values of all the input features.')
 printmd("<b>Step 2:</b> Click to select the prediction model.")
 printmd("<b>Step 3:</b> Click on Get Prediction!.")
