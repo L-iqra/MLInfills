@@ -1,5 +1,6 @@
 from ipywidgets import interact, interactive, fixed, interact_manual
 import ipywidgets as widgets
+from IPython.display import Markdown, display
 # import matplotlib.pyplot as plt
 
 import numpy as np
@@ -22,24 +23,33 @@ filterwarnings("ignore")
 
 from dash_utils import *
 
+printmd('<h2>Welcome to Optimization dashboard!</h2>')
+printmd('<h3>Follow these steps to optimize the opening ratio (OR) and stiffness (K) of masonary infilled RC frame.</h3>')
+printmd('<b>Step 1:</b> Enter the values of all the input features.')
+printmd("<b>Step 2:</b> Provide the desired range of OR and K.")
+printmd("<b>Step 3:</b> Provide the fundamental period to be targetted.")
+printmd('<b>Step 4:</b> Choose the surrogate model.')
+printmd('<b>Step 5:</b> Click on Run optimization for obtaining the optimized OR, K, and target fundamental period.')
+print('\n')
 
 
 
 @interact
-def optimize(NOSt = widgets.BoundedIntText(value = 22, min = 1, max = 22.0, step = 1, description = 'NOSt', disabled = False),
-             ORmin = widgets.BoundedFloatText(value = 0.25, min = 0., max = 1.0, step = 0.001, description = 'OR-min', disabled = False),
-             ORmax = widgets.BoundedFloatText(value = 0.75, min = 0., max = 1.0, step = 0.001, description = 'OR-max', disabled = False),
-             SL = widgets.BoundedFloatText(value = 7.5, min = 3, max = 10.0, step = 0.01, description = 'SL', disabled = False),
-             Kmin = widgets.BoundedFloatText(value = 2.25, min = 2.25, max = 25.0, step = 0.01, description = 'K-min', disabled = False),
-             Kmax = widgets.BoundedFloatText(value = 25., min = 2.25, max = 25.0, step = 0.01, description = 'K-max', disabled = False),
-             NOSp= widgets.BoundedIntText(value = 2, min = 1, max = 6.0, step = 1, description = 'NOSp', disabled = False),
-             T = widgets.BoundedFloatText(value = 1.5, min = 0.0, max = 10.0, step = 0.0001, description = 'T-target', disabled = False),
+def optimize(NOSt = widgets.BoundedIntText(value = 22, min = 1, max = 22.0, step = 1, description = '<b>NOSt</b>', disabled = False),
+             ORmin = widgets.BoundedFloatText(value = 0.25, min = 0., max = 1.0, step = 0.001, description = '<b><i>OR-min</i></b>', disabled = False),
+             ORmax = widgets.BoundedFloatText(value = 0.75, min = 0., max = 1.0, step = 0.001, description = '<b><i>OR-max</i></b>', disabled = False),
+             SL = widgets.BoundedFloatText(value = 7.5, min = 3, max = 10.0, step = 0.01, description = '<b>SL</b>', disabled = False),
+             Kmin = widgets.BoundedFloatText(value = 2.25, min = 2.25, max = 25.0, step = 0.01, description = '<b><i>K-min</i></b>', disabled = False),
+             Kmax = widgets.BoundedFloatText(value = 25., min = 2.25, max = 25.0, step = 0.01, description = '<b><i>K-max</i></b>', disabled = False),
+             NOSp= widgets.BoundedIntText(value = 2, min = 1, max = 6.0, step = 1, description = '<b>NOSp</b>', disabled = False),
+             T = widgets.BoundedFloatText(value = 1.5, min = 0.0, max = 10.0, step = 0.0001, description = '<b><i>T-target</i></b>', disabled = False),
              Model = widgets.ToggleButtons(
                                         options = ['NN', 'XGBoost', 'Eq. (9)'],
-                                        description = 'Model',
+                                        description = '<b>Model</b>',
                                         disabled = False,
                                         button_style = 'info', # 'success', 'info', 'warning', 'danger' or ''
-                                        tooltips = ['Neural Network', 'XGBoost', 'Equation given by Charalampakis et al. [17]'])):
+                                        tooltips = ['Neural Network', 'XGBoost', 'Equation given by Charalampakis et al. [17]'],
+                                        style=dict(font_weight='bold'))):
             # optimizeme = widgets.ToggleButton(
             #                             value = False,
             #                             description = 'Run optimization',
@@ -58,7 +68,7 @@ def optimize(NOSt = widgets.BoundedIntText(value = 22, min = 1, max = 22.0, step
 
         def _evaluate(self, x, out, *args, **kwargs):
            # NOSt = x[0]
-            #SL = x[1]
+            #SL = x[1]>
             OR = x[0]
             K = x[1]
             f1 = fitness_func_model(OR,K,inputs) #change fitness function according to model
@@ -119,7 +129,7 @@ def optimize(NOSt = widgets.BoundedIntText(value = 22, min = 1, max = 22.0, step
             display(df)
             begin = False
             
-    button = widgets.Button(description="Run optimization", button_style = 'success', tooltip = 'Description', icon = 'compact-disc')                    
+    button = widgets.Button(description="Run optimization", button_style = 'success', tooltip = 'Description', icon = 'compact-disc',style=dict(font_weight='bold'))                    
     output = widgets.Output()
 
     display(button, output)
