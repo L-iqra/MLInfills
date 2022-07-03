@@ -12,9 +12,12 @@ filterwarnings("ignore")
 
 np.set_printoptions(precision=4)
 
-def printmd(string, color=None):
-    colorstr = "<span style='color:{}'>{}</span>".format(color, string)
+def printmd(string, color=None,size='20'):
+    colorstr = "<span style='color:{};font-size:{}px'>{}</span>".format(color, size, string)
     display(Markdown(colorstr))
+
+def colortext(text='text', color='red'):
+    printmd(f"<font color='{color}'>{text}</font>")
     
 def load_model(config):
     
